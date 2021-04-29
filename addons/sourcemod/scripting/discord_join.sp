@@ -32,16 +32,14 @@ public Action:Event_PlayerConnect(Event event, const char[] name, bool dontBroad
 		return Plugin_Handled;
 
 	bot = GetEventInt(event, "bot");
-	if(bot == 1) {
+	if(bot == 1)
 		return Plugin_Handled;
-	}
 
 	convar = FindConVar("hostname");
 	GetEventString(event, "name", nick, sizeof(nick));
 
-	if(!GetConVarString(convar, hostname, sizeof(hostname))) {
+	if(!GetConVarString(convar, hostname, sizeof(hostname)))
 		hostname = "UNKOWN SERVER:";
-	}
 
 	char sChannel[64];
 	GetConVarString(p_cvChannel, sChannel, sizeof(sChannel));	
