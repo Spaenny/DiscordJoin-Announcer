@@ -22,10 +22,14 @@ public void OnPluginStart() {
 }
 
 public Action:Event_PlayerConnect(Event event, const char[] name, bool dontBroadcast) {	
+	new enabled = GetConVarInt(p_cvEnabled);
 	decl ConVar:convar; 
 	decl String:nick[64];
 	decl String:hostname[512];
 	new bot;
+
+	if(enabled != 1) 
+		return Plugin_Handled;
 
 	bot = GetEventInt(event, "bot");
 	if(bot == 1) {
@@ -39,7 +43,9 @@ public Action:Event_PlayerConnect(Event event, const char[] name, bool dontBroad
 		hostname = "UNKOWN SERVER:";
 	}
 
-	char sChannel[64] = "global";
+	char sChannel[64];
+	GetConVarString(p_cvChannel, sChannel, sizeof(sChannel));	
+	
 	char sMessage[512];
 	
 	Format(sMessage, sizeof(sMessage), "%s has just joined the \"%s\"!", nick, hostname);
